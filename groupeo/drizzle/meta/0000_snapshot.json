@@ -1,0 +1,390 @@
+{
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "66cae697-440b-445b-9010-3557e29b8579",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "delegue": {
+      "name": "delegue",
+      "columns": {
+        "id_delegue": {
+          "name": "id_delegue",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date_creation": {
+          "name": "date_creation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        }
+      },
+      "indexes": {
+        "delegue_email_unique": {
+          "name": "delegue_email_unique",
+          "columns": [
+            "email"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "etudiants": {
+      "name": "etudiants",
+      "columns": {
+        "id_etudiant": {
+          "name": "id_etudiant",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "matricule": {
+          "name": "matricule",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nom": {
+          "name": "nom",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date_creation": {
+          "name": "date_creation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        },
+        "date_modification": {
+          "name": "date_modification",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        }
+      },
+      "indexes": {
+        "etudiants_matricule_unique": {
+          "name": "etudiants_matricule_unique",
+          "columns": [
+            "matricule"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "groupes": {
+      "name": "groupes",
+      "columns": {
+        "id_groupe": {
+          "name": "id_groupe",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nom_groupe": {
+          "name": "nom_groupe",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "paiement_effectue": {
+      "name": "paiement_effectue",
+      "columns": {
+        "id_paiement_effectue": {
+          "name": "id_paiement_effectue",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "etudiant_matricule": {
+          "name": "etudiant_matricule",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "id_paiement": {
+          "name": "id_paiement",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "montant_paye": {
+          "name": "montant_paye",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "statut": {
+          "name": "statut",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'en_attente'"
+        },
+        "date": {
+          "name": "date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "paiement_effectue_etudiant_matricule_etudiants_matricule_fk": {
+          "name": "paiement_effectue_etudiant_matricule_etudiants_matricule_fk",
+          "tableFrom": "paiement_effectue",
+          "tableTo": "etudiants",
+          "columnsFrom": [
+            "etudiant_matricule"
+          ],
+          "columnsTo": [
+            "matricule"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "paiement_effectue_id_paiement_paiement_id_paiement_fk": {
+          "name": "paiement_effectue_id_paiement_paiement_id_paiement_fk",
+          "tableFrom": "paiement_effectue",
+          "tableTo": "paiement",
+          "columnsFrom": [
+            "id_paiement"
+          ],
+          "columnsTo": [
+            "id_paiement"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "paiement": {
+      "name": "paiement",
+      "columns": {
+        "id_paiement": {
+          "name": "id_paiement",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nom_paiement": {
+          "name": "nom_paiement",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "montant": {
+          "name": "montant",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "date_creation": {
+          "name": "date_creation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        },
+        "date_modification": {
+          "name": "date_modification",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "(current_timestamp)"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "sous_groupes": {
+      "name": "sous_groupes",
+      "columns": {
+        "id_sous_groupe": {
+          "name": "id_sous_groupe",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nom_sous_groupe": {
+          "name": "nom_sous_groupe",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "id_groupe": {
+          "name": "id_groupe",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sous_groupes_id_groupe_groupes_id_groupe_fk": {
+          "name": "sous_groupes_id_groupe_groupes_id_groupe_fk",
+          "tableFrom": "sous_groupes",
+          "tableTo": "groupes",
+          "columnsFrom": [
+            "id_groupe"
+          ],
+          "columnsTo": [
+            "id_groupe"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "sous_groupes_etudiants": {
+      "name": "sous_groupes_etudiants",
+      "columns": {
+        "id_sous_groupe": {
+          "name": "id_sous_groupe",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "matricule": {
+          "name": "matricule",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "sous_groupes_etudiants_id_sous_groupe_sous_groupes_id_sous_groupe_fk": {
+          "name": "sous_groupes_etudiants_id_sous_groupe_sous_groupes_id_sous_groupe_fk",
+          "tableFrom": "sous_groupes_etudiants",
+          "tableTo": "sous_groupes",
+          "columnsFrom": [
+            "id_sous_groupe"
+          ],
+          "columnsTo": [
+            "id_sous_groupe"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "sous_groupes_etudiants_matricule_etudiants_matricule_fk": {
+          "name": "sous_groupes_etudiants_matricule_etudiants_matricule_fk",
+          "tableFrom": "sous_groupes_etudiants",
+          "tableTo": "etudiants",
+          "columnsFrom": [
+            "matricule"
+          ],
+          "columnsTo": [
+            "matricule"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        }
+      },
+      "compositePrimaryKeys": {
+        "sous_groupes_etudiants_matricule_id_sous_groupe_pk": {
+          "columns": [
+            "matricule",
+            "id_sous_groupe"
+          ],
+          "name": "sous_groupes_etudiants_matricule_id_sous_groupe_pk"
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
+  }
+}
